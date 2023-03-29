@@ -16,7 +16,6 @@ const Card = () => {
       event.preventDefault();
       const newErrors = {};
   
-      // Check for empty fields
       if (!source) {
         newErrors.source = 'Source is required';
       }
@@ -25,7 +24,7 @@ const Card = () => {
         newErrors.destination = 'Destination is required';
       }
   
-      if (!weight || isNaN(Number(weight))) {
+      if (!weight || !/^(\d+(\.\d+)?)(\s*)(kg|lbs|g|mg)$/.test(weight)) {
         newErrors.weight = 'Enter valid value for weight';
       }
 
