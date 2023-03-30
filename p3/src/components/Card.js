@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import './Crad.css'
+import CustomTextField from './CustomTextField';
 
 const Card = () => {
     const [source, setSource] = useState('');
@@ -44,84 +45,54 @@ const Card = () => {
     return (
       <form className="horizontal-container">
         <div className="horizontal-item">
-        <TextField
+        <CustomTextField
             id="source"
             label="Source"
-            variant="standard"
             value={source}
             onChange={(event) => {
-                if (errors.source !== '' && event.target.value !== '') {
-                setErrors({ ...errors, source: '' });
-                }
-                setSource(event.target.value);
+            if (errors.source !== '' && event.target.value !== '') {
+            setErrors({ ...errors, source: '' });
+            }
+            setSource(event.target.value);
             }}
             error={errors.source !== ''}
             helperText={errors.source}
-            InputProps={{ underline: true, style: { color: 'black', fontSize:'15px' } }}
-            InputLabelProps={{
-                style: { color: 'black', fontSize: '30px', marginBottom: '20px' },
-                shrink: true,
-            }}
-            FormHelperTextProps={{
-                style: {
-                color: errors.source !== '' && source !== '' ? 'transparent' : 'black',
-                },
-            }}
-        />
-        </div>
+            placeholder={'Search destinations'}
+            />
+          </div>
         <div className="horizontal-item">
-            <TextField
-                id="destination"
-                label="Destination"
-                variant="standard"
-                value={destination}
-                onChange={(event) => {
-                    if (errors.destination !== '' && event.target.value !== '') {
-                    setErrors({ ...errors, destination: '' });
-                    }
-                    setDestination(event.target.value);
-                }}
-                error={errors.destination !== ''}
-                helperText={errors.destination}
-                InputProps={{ underline: true, style: { color: 'black', fontSize:'15px' } }}
-                InputLabelProps={{
-                    style: { color: 'black', fontSize: '30px', marginBottom: '20px' },
-                    shrink: true,
-                }}
-                FormHelperTextProps={{
-                    style: {
-                    color: errors.destination !== '' && destination !== '' ? 'transparent' : 'black',
-                    },
-                }}
+          <CustomTextField
+              id="destination"
+              label="Destination"
+              value={destination}
+              onChange={(event) => {
+              if (errors.destination !== '' && event.target.value !== '') {
+              setErrors({ ...errors, destination: '' });
+              }
+              setDestination(event.target.value);
+              }}
+              error={errors.destination !== ''}
+              helperText={errors.destination}
+              placeholder={'Add destination'}
             />
         </div>
         <div className="horizontal-item">
-            <TextField
-                id="weight"
-                label="Weight"
-                variant="standard"
-                value={weight}
-                onChange={(event) => {
-                    if (errors.weight !== '' && event.target.value !== '') {
-                    setErrors({ ...errors, weight: '' });
-                    }
-                    setWeight(event.target.value);
-                }}
-                error={errors.weight !== ''}
-                helperText={errors.weight}
-                InputProps={{ underline: true, style: { color: 'black', fontSize:'15px' } }}
-                InputLabelProps={{
-                    style: { color: 'black', fontSize: '30px', marginBottom: '20px' },
-                    shrink: true,
-                }}
-                FormHelperTextProps={{
-                    style: {
-                    color:'black',
-                    },
-                }}
+          <CustomTextField
+            id="weight"
+            label="Weight"
+            value={weight}
+            onChange={(event) => {
+            if (errors.weight !== '' && event.target.value !== '') {
+            setErrors({ ...errors, weight: '' });
+            }
+            setWeight(event.target.value);
+            }}
+            error={errors.weight !== ''}
+            helperText={errors.weight}
+            placeholder={'Add weight'}
             />
         </div>
-        <div className="horizontal-item" type="submit" onClick={handleSubmit}>
+        <div className="horizontal-item btn" type="submit" onClick={handleSubmit}>
             <span className="search-icon">&#x1F50D;Search</span>
         </div>
       </form>

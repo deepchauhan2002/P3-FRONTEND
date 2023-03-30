@@ -1,0 +1,33 @@
+.custom-textfield-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  
+  .custom-textfield-label {
+    font-size: 20px;
+  }
+  
+  .custom-textfield-input {
+    border: none;
+    font-size: 13px;
+    width: 100%;
+    color:rgb(74, 74, 74);
+    background-color: transparent;
+  }
+  
+  .custom-textfield-input:focus {
+    outline: none;
+  }
+  
+  .custom-textfield-input-error {
+    border-color: red;
+  }
+  
+  .custom-textfield-error {
+    font-size: 12px;
+    color: red;
+    margin-top: 5px;
+  }
+  
