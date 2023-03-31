@@ -1,7 +1,7 @@
-#React form 
+Simple react application to validate someform inputs
 This is a React project that was created using npx create-react-app.
 
-#Getting Started
+Getting Started
 -To get started with this project, first clone this repository:
 
 -Then, navigate into the project directory:
