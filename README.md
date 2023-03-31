@@ -7,9 +7,11 @@ Getting Started
 -Then, navigate into the project directory:
 
 -cd your-project
+
 -Next, install the project dependencies:
 
 -npm install
+
 -Finally, start the development server:
 
 -npm start
