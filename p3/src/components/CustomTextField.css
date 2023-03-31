@@ -7,6 +7,8 @@
   
   .custom-textfield-label {
     font-size: 20px;
+    margin-top:10px;
+    margin-bottom: 5px;
   }
   
   .custom-textfield-input {
