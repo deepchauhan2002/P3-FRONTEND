@@ -1,4 +1,4 @@
-Simple react application to validate someform inputs
+Simple react application to validate some form inputs
 This is a React project that was created using npx create-react-app.
 
 Getting Started
