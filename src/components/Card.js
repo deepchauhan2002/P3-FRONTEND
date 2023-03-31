@@ -37,7 +37,6 @@ const Card = () => {
         setWeight('')
       }
       else {
-        console.log(errors)
         setErrors(newErrors);
       }
     };

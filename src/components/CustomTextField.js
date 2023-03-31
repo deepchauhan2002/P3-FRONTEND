@@ -10,7 +10,6 @@ const CustomTextField = ({
     helperText,
     placeholder,
   }) => {
-    console.log(placeholder)
     return (
       <div className="custom-textfield-container">
         <label htmlFor={id} className="custom-textfield-label">
