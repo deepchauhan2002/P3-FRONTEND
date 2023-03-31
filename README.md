@@ -1,2 +1,1 @@
-# P3-FRONTEND
- A basic react form component with validation and hover effects
+To start the project go the project directory and run npm start
