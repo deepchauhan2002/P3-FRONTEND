@@ -1,6 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Hubballi&family=Roboto&family=Yanone+Kaffeesatz&display=swap');
+/* src/App.css */
 
 body {
-  font-family: 'Roboto', sans-serif;
-  /* Set the font-family to Roboto as the default font */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.App {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+}
+
+.App-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 200px);
 }
