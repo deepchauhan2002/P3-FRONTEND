@@ -1,5 +1,4 @@
 import './App.css';
-import LoginCard from './components/LoginCard';
 
 function App() {
   return (
@@ -8,7 +7,6 @@ function App() {
         <h1>Awesome Login App</h1>
       </header>
       <main>
-        <LoginCard />
       </main>
     </div>
   );
