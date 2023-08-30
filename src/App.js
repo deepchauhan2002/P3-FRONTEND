@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import LoginCard from './components/LoginCard';
 
