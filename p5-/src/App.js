@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Sketch from 'react-p5';
 
