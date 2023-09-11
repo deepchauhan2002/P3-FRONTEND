@@ -1,86 +1,75 @@
-import './App.css';
+import React, { useState } from 'react';
 import Sketch from 'react-p5';
 
-class Particle {
-  constructor(p5, type) {
-    this.type = type;
-    this.loc = p5.createVector(p5.random(p5.width * 1.2), p5.random(p5.height), 2);
-    this.angle = p5.random(p5.TWO_PI);
-    this.dir = p5.createVector(p5.cos(this.angle), p5.sin(this.angle));
-    this.speed = this.type === 'a' ? 0.5 : 0.75;
-    this.d = 1;
-  }
+const MouseDrawing = () => {
+  const [t, setT] = useState(0);
+  const [circles] = useState(24);
+  const [explodeIndex, setExplodeIndex] = useState(0);
+  const [explode, setExplode] = useState(false);
 
-  move(p5) {
-    this.angle = p5.noise(this.loc.x / noiseScale, this.loc.y / noiseScale, p5.frameCount / noiseScale) * p5.TWO_PI * noiseStrength;
-    this.dir.x = p5.cos(this.angle) + p5.sin(this.angle) - p5.sin(this.angle);
-    this.dir.y = p5.sin(this.angle) - p5.cos(this.angle) * p5.sin(this.angle);
-    this.vel = this.dir.copy();
-    this.vel.mult(this.speed * this.d);
-    this.loc.add(this.vel);
-  }
+  const drawMouse = (p, x, y, size = 1, angle = 0) => {
+    p.push();
+    p.beginShape();
+    p.translate(x, y);
+    p.rotate(angle);
+    p.vertex(0, 0);
+    p.vertex(0, 0 + 17 * size);
+    p.vertex(0 + 4 * size, 0 + 13 * size);
+    p.vertex(0 + 7 * size, 0 + 20 * size);
+    p.vertex(0 + 10 * size, 0 + 19 * size);
+    p.vertex(0 + 7 * size, 0 + 12 * size);
+    p.vertex(0 + 12 * size, 0 + 12 * size);
+    p.endShape(p.CLOSE);
+    p.pop();
+  };
 
-  checkEdges(p5) {
-    if (this.loc.x < 0 || this.loc.x > p5.width || this.loc.y < 0 || this.loc.y > p5.height) {
-      this.loc.x = p5.random(p5.width * 1.2);
-      this.loc.y = p5.random(p5.height);
-    }
-  }
-
-  update(p5, radius) {
-    p5.ellipse(this.loc.x, this.loc.y, radius);
-  }
-}
-
-let particles_a = [];
-let particles_b = [];
-let particles_c = [];
-const noiseScale = 300;
-const noiseStrength = 1.2;
-const num = 3000;
-const fade = 100; // Add fade variable
-const radius = 3; // Add radius variable
-
-const App = () => {
-  const setup = (p5, canvasParentRef) => {
-    p5.createCanvas(1200, 900).parent(canvasParentRef);
-    p5.noStroke();
-
-    for (let i = 0; i < num; i++) {
-      particles_a.push(new Particle(p5, 'a'));
-      particles_b.push(new Particle(p5, 'b'));
-      particles_c.push(new Particle(p5, 'c'));
+  const drawMouseCircle = (p, radius, count) => {
+    let newX = p.noise(radius / 100 + t);
+    for (let i = newX; i < p.TWO_PI + newX; i += p.PI / count) {
+      let x = p.cos(i) * radius * (1 + p.sin(explodeIndex) * p.sin(radius + explodeIndex * 2));
+      let y = p.sin(i) * radius * (1 + p.sin(explodeIndex) * p.sin(radius + explodeIndex * 2));
+      drawMouse(p, p.width / 2 + x, p.height / 2 + y, 1, 3.25 * p.PI / 2 + i);
     }
   };
 
-  const draw = (p5) => {
-    p5.fill(0, 2);
-    p5.noStroke();
-    p5.rect(0, 0, p5.width, p5.height);
+  const setup = (p, canvasParentRef) => {
+    p.createCanvas(200, 200).parent(canvasParentRef);
+    p.fill(0);
+    p.stroke(255);
+    p.strokeWeight(1.2);
+    p.noiseDetail(2, 0.2);
+    p.angleMode(p.RADIANS);
+    p.noCursor();
+  };
 
-    for (let i = 0; i < num; i++) {
-      p5.fill(255, fade); // Use the 'fade' variable
-      particles_a[i].move(p5);
-      particles_a[i].update(p5, radius); // Use the 'radius' variable
-      particles_a[i].checkEdges(p5);
-
-      p5.fill(0, 255, 255, fade); // Use the 'fade' variable
-      particles_b[i].move(p5);
-      particles_b[i].update(p5, radius); // Use the 'radius' variable
-      particles_b[i].checkEdges(p5);
-
-      p5.fill(102, 153, 255, fade); // Use the 'fade' variable
-      particles_c[i].move(p5);
-      particles_c[i].update(p5, radius); // Use the 'radius' variable
-      particles_c[i].checkEdges(p5);
+  const draw = (p) => {
+    p.background(0);
+    if (explode) {
+      setExplodeIndex(explodeIndex + p.PI / 60);
+      if (explodeIndex >= p.PI) {
+        setExplodeIndex(0);
+        setExplode(false);
+      }
     }
+    p.translate(p.mouseX - p.width / 2, p.mouseY - p.height / 2);
+    drawMouse(p, p.width / 2 - 5, p.height / 2 - 10);
+    for (let i = 1; i < circles; i++) {
+      drawMouseCircle(p, p.width / (circles / i), i * 3);
+    }
+    setT(t + 0.01);
+    p.translate(-p.mouseX + p.width / 2, -p.mouseY + p.height / 2);
+  };
+
+  const mousePressed = () => {
+    setExplodeIndex(0);
+    setExplode(true);
   };
 
   return (
     <div>
-      <Sketch setup={setup} draw={draw} />
+      <Sketch setup={setup} draw={draw} mousePressed={mousePressed} />
     </div>
   );
 };
 
-export default App;
+export default MouseDrawing;
