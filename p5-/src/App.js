@@ -33,7 +33,7 @@ const MouseDrawing = () => {
   };
 
   const setup = (p, canvasParentRef) => {
-    p.createCanvas(200, 200).parent(canvasParentRef);
+    p.createCanvas(900, 900 ).parent(canvasParentRef);
     p.fill(0);
     p.stroke(255);
     p.strokeWeight(1.2);
